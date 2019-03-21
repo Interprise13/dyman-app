@@ -10,6 +10,7 @@ import getVisibleExpenses from './selectors/expenses';
 import './styles/styles.scss';
 
 const store = configureStore();
+console.log('testing');
 
 
 const jsx = (
