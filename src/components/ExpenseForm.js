@@ -1,4 +1,4 @@
-AAAAAAAAAAAAAAAAAAAAAAAFVCGimport React from 'react';
+import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
