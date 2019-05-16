@@ -32,6 +32,15 @@ export const removeJob = ({ id } = {}) => ({
     id
 });
 
+export const startRemoveJob = ({ id } = {}) => {
+    return (dispatch) => {
+        return database.ref(`jobs/${id}`).remove().then (() => {
+            dispatch(removeJob({ id }));
+        });
+        
+    };
+};
+
 //Edit expense
 
 export const editJob = (id, updates) => ({
@@ -66,3 +75,4 @@ export const startSetJobs = () => {
     };
     
 };
+
