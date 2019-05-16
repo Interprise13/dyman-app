@@ -1,20 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import AppRouter from './routers/AppRouter';
-import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
+import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetJobs } from './actions/expenses';
-import { setTextFilter } from './actions/filters';
+import { login, logout } from './actions/auth';
 import getVisibleJobs from './selectors/expenses';
 import './styles/styles.scss';
-import './firebase/firebase';
+import { firebase } from './firebase/firebase';
 
 
 const store = configureStore();
-console.log('testing');
-
-
+let hasRendered = false;
+const renderApp = () => {
+    if (!hasRendered) {
+        ReactDOM.render(jsx, document.getElementById('app'));
+        hasRendered = true;
+    }
+};
 const jsx = (
     <Provider store={store}>
         <AppRouter />
@@ -24,9 +27,19 @@ const jsx = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
-store.dispatch(startSetJobs()).then(() => {
-    ReactDOM.render(jsx, document.getElementById('app'));
-})
-
-
-ReactDOM.render(jsx, document.getElementById('app'));
+firebase.auth().onAuthStateChanged((user) => {
+    if(user) {
+        store.dispatch(login(user.uid));
+        store.dispatch(startSetJobs()).then(() => {
+            renderApp();
+            if (history.location.pathname === '/') {
+                history.push('/dashboard');
+                }
+        });
+        
+    } else {
+        store.dispatch(logout());
+        renderApp();
+        history.push('/'); 
+    }
+});

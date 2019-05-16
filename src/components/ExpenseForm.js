@@ -103,7 +103,7 @@ onSubmit = (e) => {
                         isOutsideRange={() => false}
                         />
                     <textarea
-                        placeholder="Add a note for your expense (optional)"
+                        placeholder="e.g :  wintech A - H: 150(1) + 125(1), L: 600(1) + 550(1)"
                         value={this.state.note}
                         onChange={this.onNoteChange}>
                         
