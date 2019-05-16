@@ -27,11 +27,13 @@ export const startAddJob = (jobData = {}) => {
 };
 //Remove Expense
 
+//locally
 export const removeJob = ({ id } = {}) => ({
     type: 'REMOVE_JOB',
     id
 });
 
+//firebase
 export const startRemoveJob = ({ id } = {}) => {
     return (dispatch) => {
         return database.ref(`jobs/${id}`).remove().then (() => {
@@ -49,6 +51,14 @@ export const editJob = (id, updates) => ({
     updates
 });
 
+
+export const startEditJob = (id, updates) => {
+    return (dispatch) => {
+        return database.ref(`jobs/${id}`).update(updates).then(() => {
+            dispatch(editJob(id, updates));
+        });
+    };
+};
 // Set Expenses
 export const setJobs = (jobs) => ({
     type: 'SET_JOBS',
