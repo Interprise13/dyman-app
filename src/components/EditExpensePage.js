@@ -11,12 +11,12 @@ const EditExpensePage = (props) => {
                 job={props.job}
                 onSubmit={(job) => {
                     props.dispatch(startEditJob(props.job.id, job));
-                    props.history.push('/');
+                    props.history.push('/dashboard');
                 }}
                 />
             <button onClick={() => {
                 props.dispatch(startRemoveJob({id: props.job.id}));
-                props.history.push('/');
+                props.history.push('/dashboard');
             }}>Remove</button>
         </div>
     );

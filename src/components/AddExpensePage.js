@@ -6,7 +6,7 @@ import { startAddJob } from '../actions/expenses';
 export class AddExpensePage extends React.Component {
     onSubmit = (job) => {
         this.props.startAddJob(job);
-        this.props.history.push('/');
+        this.props.history.push('/dashboard');
     };
     render() {
         return(
