@@ -1,40 +1,68 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase';
 
-export const addExpense = (expense) => ({
-    type: 'ADD_EXPENSE',
-    expense  
+export const addJob = (job) => ({
+    type: 'ADD_JOB',
+    job  
 });
 
-export const startAddExpense = (expenseData = {}) => {
+export const startAddJob = (jobData = {}) => {
     return (dispatch) => {
         const {
-            description = '',
+            company ='',
+            jobTitle = '',
             note = '',
             amount = 0,
             createdAt = 0 
-        } = expenseData;
-        const expense = { description, note, amount, createdAt };
+        } = jobData;
+        const job = { company, jobTitle, note, amount, createdAt };
         
-        database.ref('expenses').push(expense).then((ref) => {
-            dispatch(addExpense({
+        database.ref('jobs').push(job).then((ref) => {
+            dispatch(addJob({
                 id: ref.key,
-                ...expense
+                ...job
             }));
         });
     };
 };
 //Remove Expense
 
-export const removeExpense = ({ id } = {}) => ({
-    type: 'REMOVE_EXPENSE',
+export const removeJob = ({ id } = {}) => ({
+    type: 'REMOVE_JOB',
     id
 });
 
 //Edit expense
 
-export const editExpense = (id, updates) => ({
-    type: 'EDIT_EXPENSE',
+export const editJob = (id, updates) => ({
+    type: 'EDIT_JOB',
     id,
     updates
 });
+
+// Set Expenses
+export const setJobs = (jobs) => ({
+    type: 'SET_JOBS',
+    jobs
+});
+
+//set Start Jobs 
+
+export const startSetJobs = () => {
+    return(dispatch) => {
+        return database.ref('jobs')
+        .once('value')
+        .then((snapshot) => {
+            const jobs =[];
+            
+            snapshot.forEach((childSnapshot) => {
+                jobs.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+            dispatch(setJobs(jobs));
+        });
+    };
+    
+};

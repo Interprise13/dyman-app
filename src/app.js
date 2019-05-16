@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import configureStore from './store/configureStore';
-import { addExpense } from './actions/expenses';
+import { startSetJobs } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
-import getVisibleExpenses from './selectors/expenses';
+import getVisibleJobs from './selectors/expenses';
 import './styles/styles.scss';
 import './firebase/firebase';
 
@@ -20,5 +20,13 @@ const jsx = (
         <AppRouter />
     </Provider>
 );
+
+
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+
+store.dispatch(startSetJobs()).then(() => {
+    ReactDOM.render(jsx, document.getElementById('app'));
+})
+
 
 ReactDOM.render(jsx, document.getElementById('app'));

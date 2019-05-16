@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { editExpense, removeExpense } from '../actions/expenses';
+import { editJob, removeJob } from '../actions/expenses';
 
 
 const EditExpensePage = (props) => {
     return (
         <div>
             <ExpenseForm 
-                expense={props.expense}
-                onSubmit={(expense) => {
-                    props.dispatch(editExpense(props.expense.id, expense));
+                job={props.job}
+                onSubmit={(job) => {
+                    props.dispatch(editJob(props.job.id, job));
                     props.history.push('/');
                 }}
                 />
             <button onClick={() => {
-                props.dispatch(removeExpense({id: props.expense.id}));
+                props.dispatch(removeJob({id: props.job.id}));
                 props.history.push('/');
             }}>Remove</button>
         </div>
@@ -24,7 +24,7 @@ const EditExpensePage = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        expense: state.expenses.find((expense) => expense.id === props.match.params.id)
+        job: state.jobs.find((job) => job.id === props.match.params.id)
     };
 };
 

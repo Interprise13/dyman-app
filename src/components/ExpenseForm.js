@@ -1,4 +1,4 @@
-import React from 'react';
+AAAAAAAAAAAAAAAAAAAAAAAFVCGimport React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
@@ -10,18 +10,24 @@ export default class ExpenseForm extends React.Component {
         super(props);
         
         this.state = {
-            description: props.expense ? props.expense.description : '',
-            note: props.expense ? props.expense.note : '',
-            amount: props.expense? (props.expense.amount / 100).toString() : '',
-            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+            company: props.job ? props.job.company : '',
+            jobTitle: props.job ? props.job.jobTitle : '',
+            note: props.job ? props.job.note : '',
+            amount: props.job? (props.job.amount / 100).toString() : '',
+            createdAt: props.job ? moment(props.job.createdAt) : moment(),
             calendarFocused: false,
             error: ''
         };
     }
     
-onDescriptionChange = (e) => {
-    const description = e.target.value;
-    this.setState(() => ({ description }));
+onCompanyChange = (e) => {
+    const company = e.target.value;
+    this.setState(() => ({ company }));
+    
+};
+onJobTitleChange = (e) => {
+    const jobTitle = e.target.value;
+    this.setState(() => ({ jobTitle }));
     
 };
 
@@ -47,14 +53,15 @@ onFocusChange = ({ focused }) => {
 onSubmit = (e) => {
     e.preventDefault();
     
-    if(!this.state.description || !this.state.amount) {
+    if(!this.state.company || !this.state.amount) {
         this.setState(() => ({ error: 'Please enter a description and amount' }));
        
        } else {
            this.setState(() => ({ error: ''}));
            // Clear the error
            this.props.onSubmit({
-                description: this.state.description,
+                company: this.state.company,
+                jobTitle: this.state.jobTitle,
                 amount: parseFloat(this.state.amount, 10) * 100,
                 createdAt: this.state.createdAt.valueOf(),
                 note: this.state.note
@@ -69,10 +76,17 @@ onSubmit = (e) => {
                 <form onSubmit={this.onSubmit}>
                     <input
                         type="text"
-                        placeholder="Description"
+                        placeholder="Company"
                         autoFocus
-                        value={this.state.description}
-                        onChange={this.onDescriptionChange}
+                        value={this.state.company}
+                        onChange={this.onCompanyChange}
+                        />
+                    <input
+                        type="text"
+                        placeholder="Job Title"
+                        autoFocus
+                        value={this.state.jobTitle}
+                        onChange={this.onJobTitleChange}
                         />
                     <input 
                         type="text"

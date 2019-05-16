@@ -1,29 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import numeral from 'numeral';
-import selectExpenses from '../selectors/expenses';
-import selectExpensesTotal from '../selectors/expenses-total';
+import selectJobs from '../selectors/expenses';
+import selectJobsTotal from '../selectors/expenses-total';
 
 
-const ExpensesSummary = ({ expenseCount, expensesTotal }) => {
+const ExpensesSummary = ({ jobCount, jobTotal }) => {
     
-    const expenseWord = expenseCount === 1 ? 'expense' : 'expenses' ;
-    const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00');
+    const jobWord = jobCount === 1 ? 'job' : 'jobs' ;
+    const formattedJobTotal = numeral(jobTotal / 100).format('$0,0.00');
     
     
     return(
         <div>
-            <h1>Viewing {expenseCount} {expenseWord} totalling {formattedExpensesTotal}</h1>
+            <h1>Viewing {jobCount} {jobWord} totalling {formattedJobTotal}</h1>
         </div>
     );
 };
 
 const mapStateToProps = (state) => {
-    const visibleExpenses = selectExpenses(state.expenses, state.filters);
+    const visibleJobs = selectJobs(state.jobs, state.filters);
     
     return {
-        expenseCount: visibleExpenses.length,
-        expensesTotal: selectExpensesTotal(visibleExpenses)
+        jobCount: visibleJobs.length,
+        jobTotal: selectJobsTotal(visibleJobs)
     };
 };
 
