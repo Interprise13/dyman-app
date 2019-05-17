@@ -7,7 +7,8 @@ export const addJob = (job) => ({
 });
 
 export const startAddJob = (jobData = {}) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
         const {
             company ='',
             jobTitle = '',
@@ -17,7 +18,7 @@ export const startAddJob = (jobData = {}) => {
         } = jobData;
         const job = { company, jobTitle, note, amount, createdAt };
         
-        database.ref('jobs').push(job).then((ref) => {
+        database.ref(`users/${uid}/jobs`).push(job).then((ref) => {
             dispatch(addJob({
                 id: ref.key,
                 ...job
@@ -35,8 +36,9 @@ export const removeJob = ({ id } = {}) => ({
 
 //firebase
 export const startRemoveJob = ({ id } = {}) => {
-    return (dispatch) => {
-        return database.ref(`jobs/${id}`).remove().then (() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/jobs/${id}`).remove().then (() => {
             dispatch(removeJob({ id }));
         });
         
@@ -53,8 +55,9 @@ export const editJob = (id, updates) => ({
 
 
 export const startEditJob = (id, updates) => {
-    return (dispatch) => {
-        return database.ref(`jobs/${id}`).update(updates).then(() => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/jobs/${id}`).update(updates).then(() => {
             dispatch(editJob(id, updates));
         });
     };
@@ -68,8 +71,9 @@ export const setJobs = (jobs) => ({
 //set Start Jobs 
 
 export const startSetJobs = () => {
-    return(dispatch) => {
-        return database.ref('jobs')
+    return(dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/jobs`)
         .once('value')
         .then((snapshot) => {
             const jobs =[];
