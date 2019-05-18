@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import selectJobs from '../selectors/expenses';
 import selectJobsTotal from '../selectors/expenses-total';
@@ -12,8 +13,13 @@ const ExpensesSummary = ({ jobCount, jobTotal }) => {
     
     
     return(
-        <div>
-            <h1>Viewing {jobCount} {jobWord} totalling {formattedJobTotal}</h1>
+        <div className="page-header">
+            <div className="content-container">
+                <h1 className="page-header__title">Viewing <span>{jobCount}</span> {jobWord} in rotation</h1>
+                <div className="page-header__actions">
+                    <Link className="page-header__button" to="/currentDashboard">View Jobs</Link>
+                </div>
+            </div>
         </div>
     );
 };

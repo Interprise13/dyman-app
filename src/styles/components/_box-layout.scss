@@ -1,0 +1,33 @@
+.box-layout {
+    align-items: center;
+    background: url('/images/login-background.jpg') center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, 1));
+    }
+}
+
+.box-layout__box {
+    z-index: 2;
+    background: fade-out(white, .15);
+    border-radius: 5px;
+    padding: $l-size $m-size;
+    text-align: center;
+    width: 25rem;
+}
+
+.box-layout__title {
+    margin: 0 0 $m-size 0;
+    line-height: 1;
+}

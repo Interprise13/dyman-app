@@ -12,11 +12,11 @@ export const startAddJob = (jobData = {}) => {
         const {
             company ='',
             jobTitle = '',
-            note = '',
-            amount = 0,
-            createdAt = 0 
+            jobSubTitle = '',
+            jobParts = '',
+            note = '', 
         } = jobData;
-        const job = { company, jobTitle, note, amount, createdAt };
+        const job = { company, jobTitle,jobSubTitle, jobParts, note};
         
         database.ref(`users/${uid}/jobs`).push(job).then((ref) => {
             dispatch(addJob({

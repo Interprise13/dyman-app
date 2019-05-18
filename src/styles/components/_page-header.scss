@@ -1,0 +1,37 @@
+.page-header{
+    background: #f7f7f7;
+    margin-bottom: $l-size;
+    padding: $l-size 0;
+    
+}
+
+.page-header__actions {
+    margin-top: $m-size;
+}
+
+.page-header__title {
+    font-weight: 300;
+    margin: 0;
+    span {
+        font-weight: bold;
+    }
+}
+.page-header__button {
+    background-color: transparent;
+    border: 1px solid $med-blue;
+    border-radius: 5px;
+    color: $dark-grey;
+    width: 150px;
+    height: 50px;
+    margin-top: 20px;
+    padding: 10px 10px;
+    line-height: 1;
+    text-decoration: none;
+    float: none;
+    transition: all ease .5s;
+    &:hover {
+        border-color: white;
+        background-color: rgba($med-blue, 0.4);
+        color: white;
+        }
+}
