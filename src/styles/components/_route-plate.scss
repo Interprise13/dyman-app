@@ -1,0 +1,26 @@
+.routePlate__root {
+    flex-grow: 1;
+    margin: 1rem;
+}
+.routePlate__link {
+    text-decoration: none;
+}
+.routePlate__paper {
+    height: 25rem;
+    background: rgba($teal-green, .7) !important;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    transition: all ease .5s;
+    &:hover {
+        background: none !important;
+        color:$teal-green;
+        border: 1px solid $teal-green;
+    }
+    &:active {
+        transform: scale(1.1);
+    }
+}
+.routePlate__title {
+    margin-top: 11rem;
+}
