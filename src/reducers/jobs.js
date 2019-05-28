@@ -1,6 +1,5 @@
 const jobReducerDefaultState = [];
 
-
 export default (state= jobReducerDefaultState, action) => {
     switch(action.type) {
         case 'ADD_JOB':
@@ -21,7 +20,7 @@ export default (state= jobReducerDefaultState, action) => {
                     return job;
                 }
             });
-        case 'SET_JOBS':
+        case 'GET_JOBS':
             return action.jobs;
         default:
             return state;

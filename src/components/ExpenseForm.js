@@ -1,7 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
+import { Row, Col } from 'react-simple-flex-grid';
+import "react-simple-flex-grid/lib/main.css";
 
 // const date = new Date();
 
@@ -13,9 +12,9 @@ export default class ExpenseForm extends React.Component {
             company: props.job ? props.job.company : '',
             jobTitle: props.job ? props.job.jobTitle : '',
             jobSubTitle: props.job ? props.job.jobSubTitle : '',
+            jobGrade: props.job ? props.job.jobGrade : '',
             jobParts: props.job ? props.job.jobParts : '',
             note: props.job ? props.job.note : '',
-            calendarFocused: false,
             error: ''
         };
     }
@@ -42,15 +41,18 @@ onJobPartsChange = (e) => {
     
 };
 
+onJobGradeChange = (e) => {
+    const jobGrade = e.target.value;
+    this.setState(() => ({ jobGrade }));
+    
+};
+
 onNoteChange = (e) => {
     const note = e.target.value;
     this.setState(() => ({ note }));
 
 };
 
-onFocusChange = ({ focused }) => {
-    this.setState(() => ({ calendarFocused: focused }))
-};
 onSubmit = (e) => {
     e.preventDefault();
     
@@ -64,6 +66,7 @@ onSubmit = (e) => {
                 company: this.state.company,
                 jobTitle: this.state.jobTitle,
                 jobSubTitle: this.state.jobSubTitle,
+                jobGrade: this.state.jobGrade,
                 jobParts: this.state.jobParts,
                 note: this.state.note,
                 
@@ -73,43 +76,63 @@ onSubmit = (e) => {
 
     render() {
         return (
-            <div>
+            <div className="expenseForm">
                 {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Company"
-                        autoFocus
-                        value={this.state.company}
-                        onChange={this.onCompanyChange}
-                        />
-                    <input
-                        type="text"
-                        placeholder="Job Title"
-                        value={this.state.jobTitle}
-                        onChange={this.onJobTitleChange}
-                        />
-                    <input 
-                        type="text"
-                        placeholder="Job SubTitle"
-                        value={this.state.jobSubTitle}
-                        onChange={this.onJobSubTitleChange}
-                        />
-                    <input 
-                        type="text"
-                        placeholder="Job Parts"
-                        value={this.state.jobParts}
-                        onChange={this.onJobPartsChange}
-                        />
-                    <textarea
-                        placeholder="e.g :  wintech A - H: 150(1) + 125(1), L: 600(1) + 550(1)"
-                        value={this.state.note}
-                        onChange={this.onNoteChange}>
-                        
-                    </textarea>
-                    <button>Add Job</button>
-                </form>
+                <Row gutter={40}>
+                    <Col 
+                        xs={{ span: 12}} 
+                        sm={{ span: 4 }} 
+                        md={{ span: 4 }} 
+                        lg={{ span: 4 }} 
+                        xl={{ span: 4 }}
+                        >
+                        <form onSubmit={this.onSubmit}>
+                            <div className="expenseForm__input">
+                                <input
+                                type="text"
+                                placeholder="Company"
+                                autoFocus
+                                value={this.state.company}
+                                onChange={this.onCompanyChange}
+                                />
+                            <input
+                                type="text"
+                                placeholder="Job Title"
+                                value={this.state.jobTitle}
+                                onChange={this.onJobTitleChange}
+                                />
+                            <input 
+                                type="text"
+                                placeholder="Job SubTitle"
+                                value={this.state.jobSubTitle}
+                                onChange={this.onJobSubTitleChange}
+                                />
+                            <input 
+                                type="text"
+                                placeholder="Job Grade"
+                                value={this.state.jobGrade}
+                                onChange={this.onJobGradeChange}
+                                />
+                            <input 
+                                type="text"
+                                placeholder="Job Parts"
+                                value={this.state.jobParts}
+                                onChange={this.onJobPartsChange}
+                                />
+                                
+                            <textarea
+                                placeholder="e.g :  wintech A - H: 150(1) + 125(1), L: 600(1) + 550(1)"
+                                value={this.state.note}
+                                onChange={this.onNoteChange}>
+
+                            </textarea>
+                            <button>Add Job</button>
+                            </div>
+                        </form>
+                    </Col>
+                </Row>
             </div>
+            
         );
     }
 }

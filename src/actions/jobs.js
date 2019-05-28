@@ -13,10 +13,11 @@ export const startAddJob = (jobData = {}) => {
             company ='',
             jobTitle = '',
             jobSubTitle = '',
+            jobGrade = '',
             jobParts = '',
             note = '', 
         } = jobData;
-        const job = { company, jobTitle,jobSubTitle, jobParts, note};
+        const job = { company, jobTitle, jobSubTitle, jobGrade,  jobParts, note};
         
         database.ref(`users/${uid}/jobs`).push(job).then((ref) => {
             dispatch(addJob({
@@ -85,6 +86,33 @@ export const startSetJobs = () => {
                 });
             });
             dispatch(setJobs(jobs));
+        });
+    };
+    
+};
+
+// Grab all Jobs
+export const getJobs = (jobs) => ({
+    type: 'GET_JOBS',
+    jobs
+});
+
+export const startGetJobs = () => {
+    return(dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`users/${uid}/jobs`)
+        .once('value')
+        .then((snapshot) => {
+            const jobs =[];
+            
+            //Parse the data using snapshot
+            snapshot.forEach((childSnapshot) => {
+                jobs.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+            dispatch(getJobs(jobs));
         });
     };
     

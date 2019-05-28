@@ -21,3 +21,13 @@ export const startLogout = () => {
         return firebase.auth().signOut();
     }
 }
+
+export const loggedInAs = () => {
+    return firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log("User is logged in")
+        } else {
+        console.log("User is logged out")
+        }
+    });
+};

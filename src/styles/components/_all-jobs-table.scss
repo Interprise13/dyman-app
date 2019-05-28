@@ -1,0 +1,36 @@
+table {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+    width: 25%;
+    padding: 10px;
+    text-align: left;
+    margin: 0;
+}
+
+
+tbody tr:nth-child(2n){
+  background-color: #eee;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    color: white;
+}
+tr {
+    
+}
+a {
+    text-decoration: none;
+}
+.all-jobs-table__hover {
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}

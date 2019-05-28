@@ -1,13 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-const RoutePlate = ({routeDescription}) => {
+const RoutePlate = ({routeDescription, link}) => {
     return(
-        <div className="routePlate__box">
-            <div className="routePlate__description">
-                <p>{routeDescription}</p>
-            </div>
-        </div>
-        
+        <Grid item xs={3}>
+            <Link className="routePlate__link" to={`/${link}`}>
+                <Paper className="routePlate__paper">
+                    <div className="routePlate__title">
+                        <span>{routeDescription}</span>
+                    </div>
+                </Paper>
+            </Link>
+        </Grid>
     );
 };
 

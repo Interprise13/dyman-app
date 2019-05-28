@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { startEditJob, startRemoveJob } from '../actions/expenses';
+import { startEditJob, startRemoveJob } from '../actions/jobs';
 
 
 const EditExpensePage = (props) => {
@@ -23,7 +23,7 @@ const EditExpensePage = (props) => {
 };
 
 const mapStateToProps = (state, props) => {
-    return {
+    return {                            
         job: state.jobs.find((job) => job.id === props.match.params.id)
     };
 };

@@ -1,6 +1,5 @@
 .page-header{
     background: #f7f7f7;
-    margin-bottom: $l-size;
     padding: $l-size 0;
     
 }
@@ -12,6 +11,7 @@
 .page-header__title {
     font-weight: 300;
     margin: 0;
+    text-align: center;
     span {
         font-weight: bold;
     }
