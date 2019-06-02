@@ -8,6 +8,9 @@ export const login = (uid) => ({
 
 export const startLogin = () => {
     return () => {
+        googleAuthProvider.setCustomParameters({
+            prompt: 'select_account'
+        });
         return firebase.auth().signInWithPopup(googleAuthProvider);
     };
 };
