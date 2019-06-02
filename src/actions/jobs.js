@@ -27,6 +27,53 @@ export const startAddJob = (jobData = {}) => {
         });
     };
 };
+//AllocateJob 
+export const allocateJob = (job) => ({
+    type: 'ALLOCATE_JOB',
+    job  
+});
+
+export const startAllocateJob = (jobData = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const {
+            company ='',
+            jobTitle = '',
+            jobSubTitle = '',
+            jobGrade = '',
+            jobParts = '',
+            note = '',
+            allocate = '',
+            status = ''
+        } = jobData;
+        const job = { company, jobTitle, jobSubTitle, jobGrade,  jobParts, note, allocate, status};
+        
+        database.ref(`allocateJobs`).push(job).then((ref) => {
+            dispatch(allocateJob({
+                id: ref.key,
+                ...job
+            }));
+        });
+    };
+};
+
+//Update allocated job
+export const updateAllocated = (id, updates) => ({
+    type: 'UPDATE_JOB',
+    id,
+    updates
+});
+
+
+export const startUpdateAllocated = (id, updates) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`allocateJobs/${id}`).update(updates).then(() => {
+            dispatch(updateAllocated(id, updates));
+        });
+    };
+};
+
 //Remove Expense
 
 //locally
@@ -39,7 +86,7 @@ export const removeJob = ({ id } = {}) => ({
 export const startRemoveJob = ({ id } = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/jobs/${id}`).remove().then (() => {
+        return database.ref(`allocateJobs/${id}`).remove().then (() => {
             dispatch(removeJob({ id }));
         });
         
@@ -116,5 +163,31 @@ export const startGetJobs = () => {
         });
     };
     
+};
+
+export const getAllocatedJobs = (ajobs) => ({
+    type: 'GET_ALLOCATED_JOBS',
+    ajobs
+});
+
+export const startGetAllocatedJobs = () => {
+    return (dispatch, getState) => {
+        return database.ref(`allocateJobs`)
+        .once('value')
+        .then((snapshot) => {
+            const ajobs = [];
+            console.log(ajobs);
+            
+            //Parse the data for allocatedJobs
+            snapshot.forEach((childSnapshot) => {
+                ajobs.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
+            console.log(ajobs);
+            dispatch(getAllocatedJobs(ajobs));
+        });
+    };
 };
 

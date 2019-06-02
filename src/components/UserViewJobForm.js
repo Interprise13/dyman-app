@@ -4,60 +4,31 @@ import "react-simple-flex-grid/lib/main.css";
 
 // const date = new Date();
 
-export default class ExpenseForm extends React.Component {
+export default class UserViewJobForm extends React.Component {
     constructor(props){
         super(props);
         
         this.state = {
-            company: props.job ? props.job.company : '',
-            jobTitle: props.job ? props.job.jobTitle : '',
-            jobSubTitle: props.job ? props.job.jobSubTitle : '',
-            jobGrade: props.job ? props.job.jobGrade : '',
-            jobParts: props.job ? props.job.jobParts : '',
-            note: props.job ? props.job.note : '',
+            company: props.job.company,
+            jobTitle: props.job.jobTitle,
+            jobSubTitle: props.job.jobSubTitle,
+            jobGrade: props.job.jobGrade,
+            jobParts: props.job.jobParts,
+            note: props.job.note,
+            status: props.job.status ? props.job.status : '',
             error: ''
         };
     }
+    onStatusChange = (e) => {
+    const status = e.target.value;
+    this.setState(() => ({ status }));
+    };
     
-onCompanyChange = (e) => {
-    const company = e.target.value;
-    this.setState(() => ({ company }));
-    
-};
-onJobTitleChange = (e) => {
-    const jobTitle = e.target.value;
-    this.setState(() => ({ jobTitle }));
-};
-
-onJobSubTitleChange = (e) => {
-    const jobSubTitle = e.target.value;
-    this.setState(() => ({ jobSubTitle }));
-    
-};
-
-onJobPartsChange = (e) => {
-    const jobParts = e.target.value;
-    this.setState(() => ({ jobParts }));
-    
-};
-
-onJobGradeChange = (e) => {
-    const jobGrade = e.target.value;
-    this.setState(() => ({ jobGrade }));
-    
-};
-
-onNoteChange = (e) => {
-    const note = e.target.value;
-    this.setState(() => ({ note }));
-
-};
-
 onSubmit = (e) => {
     e.preventDefault();
     
-    if(!this.state.company || !this.state.jobTitle) {
-        this.setState(() => ({ error: 'Please enter a company and jobtitle' }));
+    if(!this.state.status) {
+        this.setState(() => ({ error: 'Please enter the current status' }));
        
        } else {
            this.setState(() => ({ error: ''}));
@@ -69,6 +40,7 @@ onSubmit = (e) => {
                 jobGrade: this.state.jobGrade,
                 jobParts: this.state.jobParts,
                 note: this.state.note,
+                status: this.state.status
                 
            });
        }
@@ -91,41 +63,44 @@ onSubmit = (e) => {
                                 <input
                                 type="text"
                                 placeholder="Company"
-                                autoFocus
-                                value={this.state.company}
-                                onChange={this.onCompanyChange}
+                                defaultValue={this.state.company}
                                 />
                             <input
                                 type="text"
                                 placeholder="Job Title"
-                                value={this.state.jobTitle}
-                                onChange={this.onJobTitleChange}
+                                defaultValue={this.state.jobTitle}
                                 />
                             <input 
                                 type="text"
                                 placeholder="Job SubTitle"
-                                value={this.state.jobSubTitle}
-                                onChange={this.onJobSubTitleChange}
+                                defaultValue={this.state.jobSubTitle}
                                 />
                             <input 
                                 type="text"
                                 placeholder="Job Grade"
-                                value={this.state.jobGrade}
-                                onChange={this.onJobGradeChange}
+                                defaultValue={this.state.jobGrade}
                                 />
                             <input 
                                 type="text"
                                 placeholder="Job Parts"
-                                value={this.state.jobParts}
-                                onChange={this.onJobPartsChange}
+                                defaultValue={this.state.jobParts}
                                 />
                                 
                             <textarea
                                 placeholder="e.g :  wintech A - H: 150(1) + 125(1), L: 600(1) + 550(1)"
-                                value={this.state.note}
+                                defaultValue={this.state.note}
                                 onChange={this.onNoteChange}>
-
                             </textarea>
+                                <select onChange={this.onStatusChange}>
+                                    <option>{this.state.status}</option>
+                                    <option>To Be Bundled</option>
+                                    <option>To Be Angled</option>
+                                    <option>To Be Laced</option>
+                                    <option>To Be Temp Cut</option>
+                                    <option>Ready For Fab</option>
+                                    <option>Finished</option>
+                                    
+                                </select>
                             <button>{this.props.buttonDesc}</button>
                             </div>
                         </form>

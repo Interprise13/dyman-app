@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import JobDataFilters from './JobDataFilters';
 import JobDataItem from './JobDataItem';
 import {startGetJobs, getJobs} from '../actions/jobs';
+import selectJobs from '../selectors/jobs';
 
 class JobData extends React.Component {
     
@@ -14,19 +16,20 @@ class JobData extends React.Component {
     render() {
     return (
         <div>
+            <JobDataFilters />
             <table>
                 <tbody>
                     <tr>
                         <th>Company</th>
                         <th>Job Title</th>
                         <th>Job Sub Title</th>
-                        <th>Assigned To</th>
+                        <th>Job Id</th>
                     </tr>
                 </tbody>
             </table>
-          {this.props.jobs.map((job) => {
+          {this.props.selectJobs.map((job) => {
             return (
-                    <Link to={`/edit/${job.id}`}>
+                    <Link className="job-item__link" to={`/edit/${job.id}`}>
                         <JobDataItem key={job.id}{...job}/>
                     </Link>
                 )
@@ -39,7 +42,8 @@ class JobData extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        jobs: state.jobs
+        selectJobs: selectJobs(state.jobs, state.filters),
+        jobs: state.jobs,
     };
     
 };

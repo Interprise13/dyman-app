@@ -1,0 +1,19 @@
+.expenseForm__input {
+    margin-left: 1rem;
+    input{
+        
+        border: none;
+    }
+}
+
+.allocate-input{
+    border-bottom: 1px solid rgba($dark-grey, .3) !important;
+    color: $dark-grey;
+    height: 30px;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    transition: all ease .5s;
+    &:hover{
+        border-bottom: 1px solid $dark-grey !important;
+    }
+}

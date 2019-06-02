@@ -8,6 +8,9 @@ import NotFoundPage from '../components/NotFoundPage';
 import HelpPage from '../components/HelpPage';
 import LoginPage from '../components/LoginPage';
 import AllJobs from '../components/AllJobs';
+import UserJobs from '../components/UserJobs';
+import AllocateJobPage from '../components/AllocateJobPage';
+import UserViewJob from '../components/UserViewJob';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -21,8 +24,10 @@ const AppRouter = () => (
                 <PublicRoute path="/" component={LoginPage} exact={true} />
                 <PrivateRoute path="/dashboard" component={ExpenseDashboardPage} />
                 <PrivateRoute path="/create" component={AddExpensePage} />
-                <PrivateRoute path="/edit/:id" component={EditExpensePage} />
+                <PrivateRoute path="/edit/:id" component={AllocateJobPage} />
+                <PrivateRoute path="/userview/:id" component={UserViewJob} />
                 <PrivateRoute path="/alljobs" component={AllJobs} />
+                <PrivateRoute path="/userjobs" component={UserJobs} />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>

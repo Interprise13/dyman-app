@@ -8,6 +8,7 @@ const EditExpensePage = (props) => {
     return (
         <div>
             <ExpenseForm 
+                buttonDesc="Confirm"
                 job={props.job}
                 onSubmit={(job) => {
                     props.dispatch(startEditJob(props.job.id, job));
